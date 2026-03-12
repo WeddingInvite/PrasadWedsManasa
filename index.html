@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Rohan & Priya</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fontsource.org/cinzel/index.css" rel="stylesheet">
+    <link href="https://fontsource.org/lato/index.css" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- HTML2Canvas for Download Feature -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'royal-maroon': '#800020',
+                        'soft-gold': '#D4AF37',
+                        'pale-cream': '#FFFDD0',
+                        'deep-gold': '#B8860B',
+                        'cream-bg': '#FFFBF0'
+                    },
+                    fontFamily: {
+                        'cinzel': ['Cinzel', 'serif'],
+                        'lato': ['Lato', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 2s ease-out forwards',
+                        'slide-up': 'slideUp 1.5s ease-out forwards',
+                        'slide-up-delay': 'slideUp 1.5s ease-out 0.3s forwards',
+                        'slide-up-delay-2': 'slideUp 1.5s ease-out 0.6s forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'loading-fade': 'loadingFade 3s ease-in-out forwards',
+                        'scale-in': 'scaleIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        loadingFade: {
+                            '0%': { opacity: '1', visibility: 'visible' },
+                            '80%': { opacity: '1', visibility: 'visible' },
+                            '100%': { opacity: '0', visibility: 'hidden', display: 'none' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #800020;
+            background-image: url('https://image.qwenlm.ai/public_source/8a36d899-9a34-4260-83e6-8f10f20d25e0/18f86232e-ac82-4a1b-957b-9f5c26e95f4f.png');
+            background-size: 400px;
+            background-attachment: fixed;
+            background-position: center;
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+        .card-container {
+            background: linear-gradient(135deg, rgba(255, 251, 240, 0.98) 0%, rgba(255, 253, 208, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3), 0 0 0 3px rgba(212, 175, 55, 0.3);
+            border: 3px solid #D4AF37;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #800020 0%, #B8860B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-box {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 251, 240, 0.8) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 1.5rem;
+            transition: all 0.4s ease;
+        }
+        .section-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.25);
+            border-color: #D4AF37;
+        }
+        .icon-circle {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+        .divider-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+            color: #D4AF37;
+        }
+        .divider-ornament::before, .divider-ornament::after {
+            content: '';
+            flex: 1;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+            height: 2px;
+            margin: 0 1rem;
+        }
+        .map-frame {
+            width: 100%;
+            height: 280px;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid #D4AF37;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+        .btn-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-hover:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+        .ganesh-container {
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #800020; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B8860B; 
+        }
+        .corner-ornament {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 3px solid #D4AF37;
+            pointer-events: none;
+        }
+        .corner-tl { top: 15px; left: 15px; border-right: none; border-bottom: none; border-radius: 1rem 0 0 0; }
+        .corner-tr { top: 15px; right: 15px; border-left: none; border-bottom: none; border-radius: 0 1rem 0 0; }
+        .corner-bl { bottom: 15px; left: 15px; border-right: none; border-top: none; border-radius: 0 0 0 1rem; }
+        .corner-br { bottom: 15px; right: 15px; border-left: none; border-top: none; border-radius: 0 0 1rem 0; }
+        
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #800020 0%, #4a0010 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .loading-ornament {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://image.qwenlm.ai/public_source/8a36d899-9a34-4260-83e6-8f10f20d25e0/18f86232e-ac82-4a1b-957b-9f5c26e95f4f.png');
+            background-size: 300px;
+            opacity: 0.1;
+            animation: spin-slow 60s linear infinite;
+        }
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+        .loading-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #D4AF37, #FFD700, #D4AF37);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .loading-text {
+            background: linear-gradient(90deg, #D4AF37, #FFD700, #D4AF37);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+        /* Main content hidden initially */
+        #main-content {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-out, visibility 1s ease-out;
+        }
+        #main-content.loaded {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Countdown Mobile Fix - Fixed Grid Layout */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto auto;
+            gap: 0.5rem;
+            align-items: center;
+            justify-items: center;
+        }
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #800020 0%, #600018 100%);
+            border-radius: 1rem;
+            padding: 0.75rem 0.5rem;
+            min-width: 65px;
+            box-shadow: 0 4px 15px rgba(128, 0, 32, 0.4);
+        }
+        .countdown-item-md {
+            padding: 1rem 0.75rem;
+            min-width: 85px;
+            border-radius: 1.25rem;
+        }
+        .countdown-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+        }
+        .countdown-number-md {
+            font-size: 2.25rem;
+        }
+        .countdown-label {
+            font-size: 0.625rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.25rem;
+        }
+        .countdown-label-md {
+            font-size: 0.75rem;
+            margin-top: 0.375rem;
+        }
+        .countdown-separator {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #D4AF37;
+            line-height: 1;
+            padding-bottom: 0.5rem;
+        }
+        .countdown-separator-md {
+            font-size: 2.25rem;
+            padding-bottom: 0.75rem;
+        }
+        
+        @media (min-width: 768px) {
+            .countdown-grid {
+                grid-template-columns: repeat(7, auto);
+                gap: 1rem;
+            }
+        }
+        
+        /* Shloka Text Styling */
+        .shloka-text {
+            font-family: 'Cinzel', serif;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 md:p-6">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-ornament"></div>
+        
+        <!-- Om Symbol -->
+        <div class="text-6xl md:text-8xl text-soft-gold mb-6 animate-pulse-slow z-10">
+            <i class="fas fa-om"></i>
+        </div>
+        
+        <!-- Ganesh Idol -->
+        <div class="ganesh-container mb-6 z-10">
+            <img src="https://image.qwenlm.ai/public_source/8a36d899-9a34-4260-83e6-8f10f20d25e0/1e26549d3-f3f4-4f85-b684-0e330088cd31.png" 
+                 alt="Lord Ganesha" 
+                 class="w-32 h-32 md:w-40 md:h-40 object-contain animate-float">
+        </div>
+        
+        <!-- Bride & Groom Names -->
+        <h2 class="font-cinzel text-3xl md:text-4xl font-bold loading-text z-10 mb-2">
+            Rohan <span class="text-soft-gold">&</span> Priya
+        </h2>
+        
+        <!-- Invitation Text -->
+        <p class="font-lato text-white/80 text-base md:text-lg mt-1 z-10">
+            cordially invite you to their wedding
+        </p>
+        
+        <!-- Wedding Date -->
+        <div class="mt-4 bg-soft-gold/20 rounded-full px-6 py-2 z-10">
+            <p class="font-cinzel text-soft-gold text-sm md:text-base">
+                📅 April 14, 2026
+            </p>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="loading-progress z-10">
+            <div id="progress-bar" class="loading-progress-bar"></div>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="absolute top-10 left-10 w-20 h-20 border-2 border-soft-gold/30 rounded-full animate-pulse-slow"></div>
+        <div class="absolute bottom-10 right-10 w-16 h-16 border-2 border-soft-gold/30 rounded-full animate-pulse-slow" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/4 right-1/4 w-8 h-8 border border-soft-gold/20 rotate-45 animate-pulse-slow" style="animation-delay: 0.5s;"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-12 h-12 border border-soft-gold/20 rotate-45 animate-pulse-slow" style="animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- Main Invitation Card -->
+    <div id="main-content" class="w-full flex items-center justify-center">
+        <div id="invitation-card" class="card-container w-full max-w-4xl rounded-3xl overflow-hidden relative">
+            
+            <!-- Corner Ornaments -->
+            <div class="corner-ornament corner-tl"></div>
+            <div class="corner-ornament corner-tr"></div>
+            <div class="corner-ornament corner-bl"></div>
+            <div class="corner-ornament corner-br"></div>
+
+            <!-- Top Decorative Section with Ganesh -->
+            <div class="bg-gradient-to-b from-royal-maroon/10 to-transparent p-6 md:p-8">
+                <!-- Om Symbol -->
+                <div class="text-5xl text-soft-gold font-cinzel mb-4 animate-pulse-slow text-center">ॐ</div>
+                
+                <!-- Ganesh Idol -->
+                <div class="ganesh-container animate-float mb-6">
+                    <img src="https://image.qwenlm.ai/public_source/8a36d899-9a34-4260-83e6-8f10f20d25e0/1e26549d3-f3f4-4f85-b684-0e330088cd31.png" 
+                         alt="Lord Ganesha" 
+                         class="w-40 h-40 md:w-52 md:h-52 mx-auto object-contain">
+                </div>
+
+                <!-- Shloka / Mantra -->
+                <div class="max-w-lg mx-auto mb-6 animate-slide-up">
+                    <p class="shloka-text text-royal-maroon text-sm md:text-base leading-relaxed text-center italic">
+                        "वक्रतुण्ड महाकाय सूर्यकोटिसमप्रभ।<br>
+                        निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥"
+                    </p>
+                    <p class="font-lato text-gray-500 text-xs md:text-sm text-center mt-2">
+                        O Lord Ganesha, of curved trunk and immense body,<br>
+                        whose brilliance rivals a crore of suns,<br>
+                        please make all my endeavors free of obstacles, always.
+                    </p>
+                </div>
+
+                <!-- Invitation Text -->
+                <p class="font-cinzel text-royal-maroon tracking-[0.3em] text-xs md:text-sm mb-3 uppercase animate-slide-up">
+                    || Shree Ganeshay Namah ||
+                </p>
+                
+                <p class="font-lato text-gray-600 text-sm md:text-base mb-2 animate-slide-up-delay">
+                    Together with their families, we joyfully invite you to celebrate
+                </p>
+                
+                <h1 class="font-cinzel text-5xl md:text-7xl font-bold text-gradient mb-3 animate-slide-up-delay-2">
+                    Rohan <span class="text-soft-gold">&</span> Priya
+                </h1>
+                
+                <p class="font-lato text-gray-500 italic text-lg mb-4 animate-slide-up-delay-2">
+                    As we begin our journey together in holy matrimony
+                </p>
+            </div>
+
+            <div class="px-6 md:px-12 pb-10">
+                
+                <div class="divider-ornament">
+                    <i class="fas fa-om text-3xl"></i>
+                </div>
+
+                <!-- Family Details Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <!-- Groom Side -->
+                    <div class="section-box p-6 md:p-8 animate-slide-up">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="icon-circle w-14 h-14">
+                                <i class="fas fa-user-tie text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-cinzel font-bold text-2xl text-royal-maroon">The Groom</h3>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-pale-cream/50 rounded-2xl p-4 border border-soft-gold/30">
+                                <p class="font-lato text-xl font-bold text-gray-800">🤵 Rohan Sharma</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-heart text-soft-gold"></i>
+                                <p class="text-sm text-gray-600">Son of</p>
+                            </div>
+                            <div class="bg-white/60 rounded-2xl p-4 border-l-4 border-soft-gold">
+                                <p class="font-lato text-gray-700 font-semibold">Mr. Rajesh Sharma</p>
+                                <p class="font-lato text-gray-700 font-semibold">& Mrs. Sunita Sharma</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bride Side -->
+                    <div class="section-box p-6 md:p-8 animate-slide-up-delay">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="icon-circle w-14 h-14">
+                                <i class="fas fa-female text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-cinzel font-bold text-2xl text-royal-maroon">The Bride</h3>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-pale-cream/50 rounded-2xl p-4 border border-soft-gold/30">
+                                <p class="font-lato text-xl font-bold text-gray-800">👰 Priya Verma</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-heart text-soft-gold"></i>
+                                <p class="text-sm text-gray-600">Daughter of</p>
+                            </div>
+                            <div class="bg-white/60 rounded-2xl p-4 border-l-4 border-soft-gold">
+                                <p class="font-lato text-gray-700 font-semibold">Mr. Anil Verma</p>
+                                <p class="font-lato text-gray-700 font-semibold">& Mrs. Meera Verma</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wedding Details & Map Section -->
+                <div class="section-box p-6 md:p-10 mb-10 animate-slide-up-delay-2">
+                    <div class="text-center mb-8">
+                        <!-- Temple/Mandir Icon -->
+                        <div class="icon-circle w-16 h-16 mx-auto mb-4">
+                            <i class="fas fa-vihara text-white text-2xl"></i>
+                        </div>
+                        <h2 class="font-cinzel text-3xl font-bold text-royal-maroon">Wedding Ceremony</h2>
+                        <p class="text-soft-gold text-sm mt-1">विवाह समारोह</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <!-- Text Details -->
+                        <div class="space-y-5">
+                            <div class="flex items-start gap-4 bg-white/70 rounded-2xl p-4 hover:bg-pale-cream/80 transition duration-300">
+                                <!-- Calendar Icon -->
+                                <div class="icon-circle w-12 h-12 flex-shrink-0">
+                                    <i class="fas fa-calendar-day text-white text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="font-cinzel font-bold text-royal-maroon text-lg">Date</p>
+                                    <p class="text-gray-700 font-lato">Tuesday, April 14, 2026</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4 bg-white/70 rounded-2xl p-4 hover:bg-pale-cream/80 transition duration-300">
+                                <!-- Bell/Mantra Icon -->
+                                <div class="icon-circle w-12 h-12 flex-shrink-0">
+                                    <i class="fas fa-bell text-white text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="font-cinzel font-bold text-royal-maroon text-lg">Muhurtham Time</p>
+                                    <p class="text-gray-700 font-lato">10:30 AM - 12:30 PM</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 bg-white/70 rounded-2xl p-4 hover:bg-pale-cream/80 transition duration-300">
+                                <!-- Temple Location Icon -->
+                                <div class="icon-circle w-12 h-12 flex-shrink-0">
+                                    <i class="fas fa-landmark text-white text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="font-cinzel font-bold text-royal-maroon text-lg">Venue</p>
+                                    <p class="text-gray-700 font-lato font-semibold">The Grand Palace Hotel</p>
+                                    <p class="text-gray-600 text-sm">MG Road, Bangalore, Karnataka</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Map -->
+                        <div class="w-full">
+                            <div class="map-frame group cursor-pointer" onclick="openMap()">
+                                <img src="https://image.qwenlm.ai/public_source/8a36d899-9a34-4260-83e6-8f10f20d25e0/1a323d95d-f47e-45fd-a23f-11a36852f711.png" 
+                                     class="w-full h-full object-cover opacity-25 group-hover:opacity-40 transition duration-500" 
+                                     alt="Map Background">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-royal-maroon/60 to-transparent">
+                                    <div class="icon-circle w-20 h-20 mb-4 group-hover:scale-110 transition duration-300">
+                                        <i class="fas fa-map-marked-alt text-white text-3xl"></i>
+                                    </div>
+                                    <span class="font-cinzel font-bold text-white text-lg">View Location</span>
+                                    <span class="text-white/80 text-sm mt-1">Click to open Google Maps</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex justify-center gap-4">
+                                <button onclick="openMap()" class="btn-hover bg-soft-gold hover:bg-deep-gold text-white font-cinzel font-semibold py-2 px-6 rounded-full text-sm flex items-center gap-2">
+                                    <i class="fas fa-directions"></i> Get Directions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="section-box p-6 md:p-8 mb-10 animate-slide-up">
+                    <div class="text-center mb-6">
+                        <div class="icon-circle w-14 h-14 mx-auto mb-3">
+                            <i class="fas fa-hourglass-half text-white text-xl"></i>
+                        </div>
+                        <p class="font-cinzel text-royal-maroon tracking-[0.2em] text-sm">COUNTING DOWN TO THE BIG DAY</p>
+                    </div>
+                    <!-- Fixed Grid Layout for Countdown -->
+                    <div class="countdown-grid">
+                        <div class="countdown-item countdown-item-md">
+                            <span id="days" class="countdown-number countdown-number-md">00</span>
+                            <span class="countdown-label countdown-label-md">Days</span>
+                        </div>
+                        <div class="countdown-separator countdown-separator-md">:</div>
+                        <div class="countdown-item countdown-item-md">
+                            <span id="hours" class="countdown-number countdown-number-md">00</span>
+                            <span class="countdown-label countdown-label-md">Hrs</span>
+                        </div>
+                        <div class="countdown-separator countdown-separator-md">:</div>
+                        <div class="countdown-item countdown-item-md">
+                            <span id="minutes" class="countdown-number countdown-number-md">00</span>
+                            <span class="countdown-label countdown-label-md">Mins</span>
+                        </div>
+                        <div class="countdown-separator countdown-separator-md">:</div>
+                        <div class="countdown-item countdown-item-md">
+                            <span id="seconds" class="countdown-number countdown-number-md">00</span>
+                            <span class="countdown-label countdown-label-md">Secs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-center animate-slide-up-delay">
+                    <!-- WhatsApp Button -->
+                    <a href="https://wa.me/919876543210?text=Hi!%20I%20will%20be%20attending%20Rohan%20and%20Priya%27s%20wedding%20on%20April%2014,%202026.%20Looking%20forward%20to%20celebrate%20with%20you!%20🎉" 
+                       target="_blank"
+                       class="btn-hover w-full md:w-auto bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-cinzel font-bold py-4 px-10 rounded-full shadow-xl flex items-center justify-center gap-3 text-lg">
+                        <i class="fab fa-whatsapp text-2xl"></i> Confirm on WhatsApp
+                    </a>
+
+                    <!-- Download Button -->
+                    <button onclick="downloadCard()" 
+                            class="btn-hover w-full md:w-auto bg-gradient-to-r from-royal-maroon to-red-900 hover:from-red-900 hover:to-maroon-950 text-white font-cinzel font-bold py-4 px-10 rounded-full shadow-xl flex items-center justify-center gap-3 text-lg">
+                        <i class="fas fa-download"></i> Download Card
+                    </button>
+                </div>
+
+                <!-- Footer Message -->
+                <div class="text-center mt-10 pt-6 border-t-2 border-soft-gold/30">
+                    <p class="font-lato text-gray-600 text-sm md:text-base italic">
+                        <i class="fas fa-heart text-soft-gold"></i> 
+                        Your presence will make our special day even more memorable 
+                        <i class="fas fa-heart text-soft-gold"></i>
+                    </p>
+                    <p class="font-cinzel text-royal-maroon text-xs mt-3 tracking-widest">
+                        || शुभ विवाह ||
+                    </p>
+                </div>
+
+            </div>
+            
+            <!-- Bottom Decorative Border -->
+            <div class="h-3 bg-gradient-to-r from-royal-maroon via-soft-gold to-royal-maroon w-full"></div>
+        </div>
+    </div>
+
+    <script>
+        // Loading Screen Animation
+        window.addEventListener('load', function() {
+            const progressBar = document.getElementById('progress-bar');
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            // Simulate loading progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+                    
+                    // Fade out loading screen after 2.5 seconds
+                    setTimeout(() => {
+                        loadingScreen.style.animation = 'loadingFade 1s ease-out forwards';
+                        
+                        // Show main content
+                        setTimeout(() => {
+                            mainContent.classList.add('loaded');
+                            loadingScreen.style.display = 'none';
+                        }, 800);
+                    }, 500);
+                }
+                progressBar.style.width = progress + '%';
+            }, 200);
+        });
+
+        // Countdown Timer Logic
+        const weddingDate = new Date("April 14, 2026 10:30:00").getTime();
+
+        const countdownFunction = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = `
+                    <div class='bg-gradient-to-br from-soft-gold to-deep-gold text-white rounded-3xl p-8 md:p-12 shadow-2xl text-center'>
+                        <i class='fas fa-rings-wedding text-5xl mb-4'></i>
+                        <div class='text-2xl md:text-4xl font-bold font-cinzel'>HAPPILY MARRIED!</div>
+                        <div class='text-white/80 text-sm mt-2'>शुभ विवाह</div>
+                    </div>
+                `;
+            }
+        }, 1000);
+
+        // Open Map Function
+        function openMap() {
+            const mapUrl = "https://www.google.com/maps/search/?api=1&query=Grand+Palace+Hotel+MG+Road+Bangalore";
+            window.open(mapUrl, '_blank');
+        }
+
+        // Download Card Function using html2canvas
+        function downloadCard() {
+            const cardElement = document.getElementById('invitation-card');
+            const btn = event.currentTarget;
+            const originalHTML = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            btn.disabled = true;
+            
+            html2canvas(cardElement, {
+                scale: 2,
+                backgroundColor: "#FFFBF0",
+                useCORS: true,
+                allowTaint: true,
+                logging: false
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Rohan-Priya-Wedding-Invitation.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }).catch(err => {
+                console.error("Download failed:", err);
+                alert("Sorry, could not generate image. Please take a screenshot instead.");
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
+
