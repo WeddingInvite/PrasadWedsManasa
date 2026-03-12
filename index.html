@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation - Rohan & Priya</title>
+    <title>Wedding Invitation - Prasad & Manasa</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fonts -->
@@ -39,6 +39,8 @@
                         'spin-slow': 'spin 8s linear infinite',
                         'loading-fade': 'loadingFade 3s ease-in-out forwards',
                         'scale-in': 'scaleIn 0.8s ease-out forwards',
+                        'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+                        'floating-heart': 'floatingHeart 4s ease-in-out infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -65,6 +67,14 @@
                         shimmer: {
                             '0%': { backgroundPosition: '-200% 0' },
                             '100%': { backgroundPosition: '200% 0' },
+                        },
+                        heartbeat: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.2)' },
+                        },
+                        floatingHeart: {
+                            '0%, 100%': { transform: 'translateY(0) rotate(0deg)', opacity: '0.6' },
+                            '50%': { transform: 'translateY(-15px) rotate(10deg)', opacity: '1' },
                         }
                     },
                     borderRadius: {
@@ -139,6 +149,21 @@
             position: relative;
             border: 3px solid #D4AF37;
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+        .video-frame {
+            width: 100%;
+            height: 350px;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid #D4AF37;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            background: #000;
+        }
+        .video-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .btn-hover {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -233,66 +258,79 @@
             visibility: visible;
         }
         
-        /* Countdown Mobile Fix - Fixed Grid Layout */
-        .countdown-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto;
-            gap: 0.5rem;
+        /* Countdown - 3 items first row, 1 item second row on mobile */
+        .countdown-wrapper {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-items: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+        .countdown-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.25rem;
+            flex-wrap: nowrap;
         }
         .countdown-item {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, #800020 0%, #600018 100%);
-            border-radius: 1rem;
-            padding: 0.75rem 0.5rem;
-            min-width: 65px;
+            border-radius: 0.75rem;
+            padding: 0.5rem 0.35rem;
+            min-width: 55px;
+            flex-shrink: 0;
             box-shadow: 0 4px 15px rgba(128, 0, 32, 0.4);
         }
         .countdown-item-md {
-            padding: 1rem 0.75rem;
-            min-width: 85px;
-            border-radius: 1.25rem;
+            padding: 0.75rem 0.5rem;
+            min-width: 70px;
+            border-radius: 1rem;
         }
         .countdown-number {
-            font-size: 1.5rem;
+            font-size: 1.125rem;
             font-weight: 700;
             color: white;
             line-height: 1;
         }
         .countdown-number-md {
-            font-size: 2.25rem;
+            font-size: 1.75rem;
         }
         .countdown-label {
-            font-size: 0.625rem;
+            font-size: 0.5rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: rgba(255, 255, 255, 0.8);
-            margin-top: 0.25rem;
+            margin-top: 0.15rem;
+            white-space: nowrap;
         }
         .countdown-label-md {
-            font-size: 0.75rem;
-            margin-top: 0.375rem;
+            font-size: 0.625rem;
+            margin-top: 0.25rem;
         }
         .countdown-separator {
-            font-size: 1.5rem;
+            font-size: 1.125rem;
             font-weight: 700;
             color: #D4AF37;
             line-height: 1;
+            flex-shrink: 0;
             padding-bottom: 0.5rem;
         }
         .countdown-separator-md {
-            font-size: 2.25rem;
+            font-size: 1.75rem;
             padding-bottom: 0.75rem;
         }
         
-        @media (min-width: 768px) {
-            .countdown-grid {
-                grid-template-columns: repeat(7, auto);
-                gap: 1rem;
+        @media (min-width: 640px) {
+            .countdown-wrapper {
+                flex-direction: row;
+                gap: 0.75rem;
+            }
+            .countdown-row {
+                gap: 0.75rem;
             }
         }
         
@@ -302,9 +340,60 @@
             line-height: 1.8;
             letter-spacing: 0.05em;
         }
+        
+        /* Floating Hearts Background */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .floating-heart {
+            position: absolute;
+            color: rgba(212, 175, 55, 0.3);
+            animation: floatingHeart 4s ease-in-out infinite;
+        }
+        
+        /* Love decorations around names */
+        .love-decoration {
+            display: inline-block;
+            color: #D4AF37;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        /* Together Symbol Animation */
+        .together-symbol {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #D4AF37;
+            font-size: 2rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @media (min-width: 768px) {
+            .together-symbol {
+                font-size: 3rem;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 md:p-6">
+
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="floating-hearts">
+        <i class="fas fa-heart floating-heart" style="top: 10%; left: 10%; font-size: 1rem; animation-delay: 0s;"></i>
+        <i class="fas fa-heart floating-heart" style="top: 20%; left: 80%; font-size: 1.5rem; animation-delay: 0.5s;"></i>
+        <i class="fas fa-heart floating-heart" style="top: 50%; left: 5%; font-size: 1.2rem; animation-delay: 1s;"></i>
+        <i class="fas fa-heart floating-heart" style="top: 70%; left: 90%; font-size: 1rem; animation-delay: 1.5s;"></i>
+        <i class="fas fa-heart floating-heart" style="top: 85%; left: 20%; font-size: 1.3rem; animation-delay: 2s;"></i>
+        <i class="fas fa-heart floating-heart" style="top: 40%; left: 70%; font-size: 0.8rem; animation-delay: 2.5s;"></i>
+        <i class="fas fa-heart floating-heart" style="top: 15%; left: 50%; font-size: 1.1rem; animation-delay: 3s;"></i>
+        <i class="fas fa-heart floating-heart" style="top: 60%; left: 85%; font-size: 1.4rem; animation-delay: 0.8s;"></i>
+    </div>
 
     <!-- Loading Screen -->
     <div id="loading-screen">
@@ -322,10 +411,20 @@
                  class="w-32 h-32 md:w-40 md:h-40 object-contain animate-float">
         </div>
         
-        <!-- Bride & Groom Names -->
-        <h2 class="font-cinzel text-3xl md:text-4xl font-bold loading-text z-10 mb-2">
-            Rohan <span class="text-soft-gold">&</span> Priya
-        </h2>
+        <!-- Bride & Groom Names with Together Symbol -->
+        <div class="z-10 mb-2 flex items-center justify-center gap-2">
+            <span class="love-decoration text-2xl md:text-3xl">💕</span>
+            <h2 class="font-cinzel text-3xl md:text-4xl font-bold loading-text">
+                Prasad &
+            </h2>
+            <span class="together-symbol">
+                <i class="fas fa-rings-wedding"></i>
+            </span>
+            <h2 class="font-cinzel text-3xl md:text-4xl font-bold loading-text">
+                Manasa
+            </h2>
+            <span class="love-decoration text-2xl md:text-3xl">💕</span>
+        </div>
         
         <!-- Invitation Text -->
         <p class="font-lato text-white/80 text-base md:text-lg mt-1 z-10">
@@ -335,7 +434,7 @@
         <!-- Wedding Date -->
         <div class="mt-4 bg-soft-gold/20 rounded-full px-6 py-2 z-10">
             <p class="font-cinzel text-soft-gold text-sm md:text-base">
-                📅 April 14, 2026
+                📅 April 12, 2026
             </p>
         </div>
         
@@ -395,9 +494,20 @@
                     Together with their families, we joyfully invite you to celebrate
                 </p>
                 
-                <h1 class="font-cinzel text-5xl md:text-7xl font-bold text-gradient mb-3 animate-slide-up-delay-2">
-                    Rohan <span class="text-soft-gold">&</span> Priya
-                </h1>
+                <!-- Bride & Groom Names with Together Symbol -->
+                <div class="animate-slide-up-delay-2 mb-3 flex items-center justify-center gap-2 flex-wrap">
+                    <span class="love-decoration text-xl md:text-2xl">💖</span>
+                    <h1 class="font-cinzel text-4xl md:text-6xl lg:text-7xl font-bold text-gradient">
+                        Prasad &
+                    </h1>
+                    <span class="together-symbol mx-1 md:mx-3">
+                        <i class="fas fa-rings-wedding"></i>
+                    </span>
+                    <h1 class="font-cinzel text-4xl md:text-6xl lg:text-7xl font-bold text-gradient">
+                        Manasa
+                    </h1>
+                    <span class="love-decoration text-xl md:text-2xl">💖</span>
+                </div>
                 
                 <p class="font-lato text-gray-500 italic text-lg mb-4 animate-slide-up-delay-2">
                     As we begin our journey together in holy matrimony
@@ -407,7 +517,7 @@
             <div class="px-6 md:px-12 pb-10">
                 
                 <div class="divider-ornament">
-                    <i class="fas fa-om text-3xl"></i>
+                    <i class="fas fa-om text-2xl"></i>
                 </div>
 
                 <!-- Family Details Section -->
@@ -424,12 +534,9 @@
                         </div>
                         <div class="space-y-4">
                             <div class="bg-pale-cream/50 rounded-2xl p-4 border border-soft-gold/30">
-                                <p class="font-lato text-xl font-bold text-gray-800">🤵 Rohan Sharma</p>
+                                <p class="font-lato text-xl font-bold text-gray-800 text-center">🤵 Durga Prasad</p>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <i class="fas fa-heart text-soft-gold"></i>
-                                <p class="text-sm text-gray-600">Son of</p>
-                            </div>
+                            <p class="text-sm text-gray-600 text-center">Son of</p>
                             <div class="bg-white/60 rounded-2xl p-4 border-l-4 border-soft-gold">
                                 <p class="font-lato text-gray-700 font-semibold">Mr. Rajesh Sharma</p>
                                 <p class="font-lato text-gray-700 font-semibold">& Mrs. Sunita Sharma</p>
@@ -449,12 +556,9 @@
                         </div>
                         <div class="space-y-4">
                             <div class="bg-pale-cream/50 rounded-2xl p-4 border border-soft-gold/30">
-                                <p class="font-lato text-xl font-bold text-gray-800">👰 Priya Verma</p>
+                                <p class="font-lato text-xl font-bold text-gray-800 text-center">👰 Manasa</p>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <i class="fas fa-heart text-soft-gold"></i>
-                                <p class="text-sm text-gray-600">Daughter of</p>
-                            </div>
+                            <p class="text-sm text-gray-600 text-center">Daughter of</p>
                             <div class="bg-white/60 rounded-2xl p-4 border-l-4 border-soft-gold">
                                 <p class="font-lato text-gray-700 font-semibold">Mr. Anil Verma</p>
                                 <p class="font-lato text-gray-700 font-semibold">& Mrs. Meera Verma</p>
@@ -463,14 +567,40 @@
                     </div>
                 </div>
 
-                <!-- Wedding Details & Map Section -->
+                <!-- Wedding Invitation Video Section -->
                 <div class="section-box p-6 md:p-10 mb-10 animate-slide-up-delay-2">
+                    <div class="text-center mb-6">
+                        <!-- Video Icon -->
+                        <div class="icon-circle w-16 h-16 mx-auto mb-4">
+                            <i class="fas fa-film text-white text-2xl"></i>
+                        </div>
+                        <h2 class="font-cinzel text-3xl font-bold text-royal-maroon">
+                            Our Wedding Invitation
+                        </h2>
+                        <p class="text-soft-gold text-sm mt-1">Watch our special moment</p>
+                    </div>
+                    
+                    <div class="video-frame">
+                        <video controls poster="https://image.qwenlm.ai/public_source/8a36d899-9a34-4260-83e6-8f10f20d25e0/188c48b33-7f81-4ceb-bc7c-c007f8a0edab.png">
+                            <source src="https://cdn.pixabay.com/vimeo/321671260/wedding-22384.mp4?width=1280&hash=1c6e8a8f8e8f8e8f8e8f8e8f8e8f8e8f8e8f8e8f" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p class="text-center text-gray-500 text-sm mt-4">
+                        Click play to watch our invitation video
+                    </p>
+                </div>
+
+                <!-- Wedding Details & Map Section -->
+                <div class="section-box p-6 md:p-10 mb-10 animate-slide-up">
                     <div class="text-center mb-8">
                         <!-- Temple/Mandir Icon -->
                         <div class="icon-circle w-16 h-16 mx-auto mb-4">
                             <i class="fas fa-vihara text-white text-2xl"></i>
                         </div>
-                        <h2 class="font-cinzel text-3xl font-bold text-royal-maroon">Wedding Ceremony</h2>
+                        <h2 class="font-cinzel text-3xl font-bold text-royal-maroon">
+                            Wedding Ceremony
+                        </h2>
                         <p class="text-soft-gold text-sm mt-1">विवाह समारोह</p>
                     </div>
                     
@@ -484,7 +614,7 @@
                                 </div>
                                 <div>
                                     <p class="font-cinzel font-bold text-royal-maroon text-lg">Date</p>
-                                    <p class="text-gray-700 font-lato">Tuesday, April 14, 2026</p>
+                                    <p class="text-gray-700 font-lato">Sunday, April 12, 2026</p>
                                 </div>
                             </div>
                             
@@ -495,7 +625,7 @@
                                 </div>
                                 <div>
                                     <p class="font-cinzel font-bold text-royal-maroon text-lg">Muhurtham Time</p>
-                                    <p class="text-gray-700 font-lato">10:30 AM - 12:30 PM</p>
+                                    <p class="text-gray-700 font-lato">08:30 PM</p>
                                 </div>
                             </div>
 
@@ -507,7 +637,7 @@
                                 <div>
                                     <p class="font-cinzel font-bold text-royal-maroon text-lg">Venue</p>
                                     <p class="text-gray-700 font-lato font-semibold">The Grand Palace Hotel</p>
-                                    <p class="text-gray-600 text-sm">MG Road, Bangalore, Karnataka</p>
+                                    <p class="text-gray-600 text-sm">Ramalayam Street, Yeditha, Mandapeta</p>
                                 </div>
                             </div>
                         </div>
@@ -541,28 +671,36 @@
                         <div class="icon-circle w-14 h-14 mx-auto mb-3">
                             <i class="fas fa-hourglass-half text-white text-xl"></i>
                         </div>
-                        <p class="font-cinzel text-royal-maroon tracking-[0.2em] text-sm">COUNTING DOWN TO THE BIG DAY</p>
+                        <p class="font-cinzel text-royal-maroon tracking-[0.2em] text-sm">
+                            COUNTING DOWN TO THE BIG DAY
+                        </p>
                     </div>
-                    <!-- Fixed Grid Layout for Countdown -->
-                    <div class="countdown-grid">
-                        <div class="countdown-item countdown-item-md">
-                            <span id="days" class="countdown-number countdown-number-md">00</span>
-                            <span class="countdown-label countdown-label-md">Days</span>
+                    <!-- Countdown - 3 items first row, 1 item second row on mobile -->
+                    <div class="countdown-wrapper">
+                        <div class="countdown-row">
+                            <div class="countdown-item countdown-item-md">
+                                <span id="days" class="countdown-number countdown-number-md">00</span>
+                                <span class="countdown-label countdown-label-md">Days</span>
+                            </div>
+                            <div class="countdown-separator countdown-separator-md">:</div>
+                            <div class="countdown-item countdown-item-md">
+                                <span id="hours" class="countdown-number countdown-number-md">00</span>
+                                <span class="countdown-label countdown-label-md">Hrs</span>
+                            </div>
+                            <div class="countdown-separator countdown-separator-md">:</div>
+                            <div class="countdown-item countdown-item-md">
+                                <span id="minutes" class="countdown-number countdown-number-md">00</span>
+                                <span class="countdown-label countdown-label-md">Mins</span>
+                            </div>
                         </div>
-                        <div class="countdown-separator countdown-separator-md">:</div>
-                        <div class="countdown-item countdown-item-md">
-                            <span id="hours" class="countdown-number countdown-number-md">00</span>
-                            <span class="countdown-label countdown-label-md">Hrs</span>
-                        </div>
-                        <div class="countdown-separator countdown-separator-md">:</div>
-                        <div class="countdown-item countdown-item-md">
-                            <span id="minutes" class="countdown-number countdown-number-md">00</span>
-                            <span class="countdown-label countdown-label-md">Mins</span>
-                        </div>
-                        <div class="countdown-separator countdown-separator-md">:</div>
-                        <div class="countdown-item countdown-item-md">
-                            <span id="seconds" class="countdown-number countdown-number-md">00</span>
-                            <span class="countdown-label countdown-label-md">Secs</span>
+                        <div class="countdown-row">
+                            <div class="countdown-separator countdown-separator-md" style="visibility: hidden;">:</div>
+                            <div class="countdown-separator countdown-separator-md" style="visibility: hidden;">:</div>
+                            <div class="countdown-separator countdown-separator-md" style="visibility: hidden;">:</div>
+                            <div class="countdown-item countdown-item-md">
+                                <span id="seconds" class="countdown-number countdown-number-md">00</span>
+                                <span class="countdown-label countdown-label-md">Secs</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -570,7 +708,7 @@
                 <!-- Action Buttons -->
                 <div class="flex flex-col md:flex-row gap-4 justify-center items-center animate-slide-up-delay">
                     <!-- WhatsApp Button -->
-                    <a href="https://wa.me/919876543210?text=Hi!%20I%20will%20be%20attending%20Rohan%20and%20Priya%27s%20wedding%20on%20April%2014,%202026.%20Looking%20forward%20to%20celebrate%20with%20you!%20🎉" 
+                    <a href="https://wa.me/918985528756?text=Hi!%20I%20will%20be%20attending%20Rohan%20and%20Priya%27s%20wedding%20on%20April%2014,%202026.%20Looking%20forward%20to%20celebrate%20with%20you!%20🎉" 
                        target="_blank"
                        class="btn-hover w-full md:w-auto bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-cinzel font-bold py-4 px-10 rounded-full shadow-xl flex items-center justify-center gap-3 text-lg">
                         <i class="fab fa-whatsapp text-2xl"></i> Confirm on WhatsApp
@@ -586,9 +724,7 @@
                 <!-- Footer Message -->
                 <div class="text-center mt-10 pt-6 border-t-2 border-soft-gold/30">
                     <p class="font-lato text-gray-600 text-sm md:text-base italic">
-                        <i class="fas fa-heart text-soft-gold"></i> 
-                        Your presence will make our special day even more memorable 
-                        <i class="fas fa-heart text-soft-gold"></i>
+                        Your presence will make our special day even more memorable
                     </p>
                     <p class="font-cinzel text-royal-maroon text-xs mt-3 tracking-widest">
                         || शुभ विवाह ||
@@ -602,7 +738,30 @@
         </div>
     </div>
 
+    <!-- Background Music - Auto Play on Page Load -->
+    <audio id="background-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8a73467.mp3?filename=peaceful-meditation-12487.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=soft-piano-11368.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
+        // Auto Play Music on Page Load
+        const music = document.getElementById('background-music');
+        music.volume = 0.4;
+        
+        // Try to autoplay when page loads
+        window.addEventListener('load', function() {
+            music.play().catch(e => {
+                console.log('Autoplay prevented by browser. User interaction needed.');
+            });
+        });
+        
+        // Also try on first user interaction
+        document.addEventListener('click', function playOnInteraction() {
+            music.play().catch(e => console.log('Audio play failed:', e));
+            document.removeEventListener('click', playOnInteraction);
+        }, { once: true });
+
         // Loading Screen Animation
         window.addEventListener('load', function() {
             const progressBar = document.getElementById('progress-bar');
@@ -633,7 +792,7 @@
         });
 
         // Countdown Timer Logic
-        const weddingDate = new Date("April 14, 2026 10:30:00").getTime();
+        const weddingDate = new Date("April 12, 2026 20:30:00").getTime();
 
         const countdownFunction = setInterval(function() {
             const now = new Date().getTime();
@@ -663,7 +822,7 @@
 
         // Open Map Function
         function openMap() {
-            const mapUrl = "https://www.google.com/maps/search/?api=1&query=Grand+Palace+Hotel+MG+Road+Bangalore";
+            const mapUrl = "https://maps.app.goo.gl/i39j51kC5osS93RF8";
             window.open(mapUrl, '_blank');
         }
 
