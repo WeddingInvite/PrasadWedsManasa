@@ -740,7 +740,7 @@
                     <!-- Download Button -->
                     <button onclick="downloadCard()" 
                             class="btn-hover w-full md:w-auto bg-gradient-to-r from-royal-maroon to-red-900 hover:from-red-900 hover:to-maroon-950 text-white font-cinzel font-bold py-4 px-10 rounded-full shadow-xl flex items-center justify-center gap-3 text-lg">
-                        <i class="fas fa-download"></i> Download Card
+                        <i class="fas fa-download"></i> Download Invitation Card
                     </button>
                 </div>
 
@@ -851,34 +851,33 @@
 
         // Download Card Function using html2canvas
         function downloadCard() {
-            const cardElement = document.getElementById('invitation-card');
-            const btn = event.currentTarget;
-            const originalHTML = btn.innerHTML;
+    const btn = event.currentTarget;
+    const originalHTML = btn.innerHTML;
+    
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+    btn.disabled = true;
+
+    // 🔥 Your GitHub RAW image URL
+    const imageUrl = "https://raw.githubusercontent.com/WeddingInvite/MasoodWedsRehana/refs/heads/main/IMG-20251116-WA0001.jpg";
+
+    fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            const link = document.createElement('a');
+            link.download = 'Prasad-Manasa-Wedding-Invitation.jpg';
+            link.href = URL.createObjectURL(blob);
+            link.click();
             
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-            btn.disabled = true;
-            
-            html2canvas(cardElement, {
-                scale: 2,
-                backgroundColor: "#FFFBF0",
-                useCORS: true,
-                allowTaint: true,
-                logging: false
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'Prasad-Manasa-Wedding-Invitation.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-            }).catch(err => {
-                console.error("Download failed:", err);
-                alert("Sorry, could not generate image. Please take a screenshot instead.");
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-            });
-        }
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        })
+        .catch(err => {
+            console.error("Download failed:", err);
+            alert("Sorry, could not download image.");
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        });
+}
     </script>
 </body>
 </html>
