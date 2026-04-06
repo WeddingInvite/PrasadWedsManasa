@@ -151,20 +151,46 @@
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
         }
         .video-frame {
-            width: 100%;
-            height: 350px;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            position: relative;
-            border: 3px solid #D4AF37;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-            background: #000;
-        }
-        .video-frame video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    border: 3px solid #D4AF37;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    background: #000;
+}
+
+.video-frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Play overlay */
+.play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+    cursor: pointer;
+}
+
+.play-btn {
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    padding: 18px 24px;
+    font-size: 26px;
+    transition: 0.3s;
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+}
         .btn-hover {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -607,11 +633,18 @@
                     </div>
                     
                     <div class="video-frame">
-                        <video controls poster="https://image.qwenlm.ai/public_source/8a36d899-9a34-4260-83e6-8f10f20d25e0/188c48b33-7f81-4ceb-bc7c-c007f8a0edab.png">
-                            <source src="https://raw.githubusercontent.com/WeddingInvite/PrasadWedsManasa/main/VID-20260330-WA0004.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
+
+    <video id="weddingVideo" playsinline controls>
+        <source src="https://raw.githubusercontent.com/WeddingInvite/PrasadWedsManasa/main/VID-20260330-WA0004.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- ▶️ Play Overlay -->
+    <div id="playOverlay" class="play-overlay">
+        <div class="play-btn">▶️</div>
+    </div>
+
+</div>
                     <p class="text-center text-gray-500 text-sm mt-4">
                         Click play to watch our invitation video
                     </p>
@@ -768,6 +801,16 @@
     </audio>
 
     <script>
+
+        const video = document.getElementById("weddingVideo");
+const overlay = document.getElementById("playOverlay");
+
+if (overlay && video) {
+    overlay.addEventListener("click", () => {
+        video.play();
+        overlay.style.display = "none";
+    });
+}
         // Auto Play Music on Page Load
         const music = document.getElementById('background-music');
         music.volume = 0.4;
